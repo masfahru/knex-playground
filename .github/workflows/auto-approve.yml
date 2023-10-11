@@ -13,8 +13,23 @@ jobs:
         uses: dependabot/fetch-metadata@v1
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Merge PR
-        run: gh pr merge --merge --auto --delete-branch "$PR_URL"
+      - name: Checkout PR branch
+        run: gh pr checkout "$PR_ID"
+        env:
+          PR_ID: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Build
+        id: build
+        run: |
+          npm install
+          npm run build
+      - name: Merge PR if build successful or close PR if build failed
+        run: |
+          if [ ${{ steps.build.outcome }} == "success" ]; then
+            gh pr merge "$PR_ID" --auto --squash --delete-branch
+          else
+            gh pr close "$PR_ID"
+          fi
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

@@ -13,15 +13,8 @@ jobs:
         uses: dependabot/fetch-metadata@v1
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Set default branch
-        run: gh repo set-default masfahru/knex-playground
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      - name: Checkout PR branch
-        run: gh pr checkout "$PR_ID"
-        env:
-          PR_ID: ${{ github.event.pull_request.number }}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Checkout Branch
+        uses: actions/checkout@v4
       - name: Build
         id: build
         run: |

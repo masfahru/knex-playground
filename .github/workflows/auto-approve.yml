@@ -23,7 +23,7 @@ jobs:
       - name: Merge PR if build successful or close PR if build failed
         run: |
           if [ ${{ steps.build.outcome }} == "success" ]; then
-            gh pr merge "$PR_ID" --auto --squash --delete-branch
+            gh pr merge --merge --auto --delete-branch "$PR_URL"
           else
             gh pr close "$PR_ID"
           fi

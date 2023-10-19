@@ -16,7 +16,7 @@
     "@angular/forms": "^16.2.10",
     "@angular/platform-browser": "^16.2.9",
     "@angular/platform-browser-dynamic": "^16.2.10",
-    "@angular/router": "^16.2.9",
+    "@angular/router": "^16.2.10",
     "@materia-ui/ngx-monaco-editor": "^6.0.0",
     "angular-split": "^16.2.1",
     "assert": "^2.1.0",
